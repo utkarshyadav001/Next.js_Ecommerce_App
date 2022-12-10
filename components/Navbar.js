@@ -1,22 +1,24 @@
-import React,{useRef} from 'react'
+import React, { useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Cart from '../pages/cart'
 
-const Navbar = () => {
+const Navbar = (props) => {
+
+    const { cart, addToCart, removeFromCart, clearCart, subTotal } = props;
 
     const toggleCart = () => {
-        console.log("i am running")
-        if(ref.current.classList.contains('translate-x-full')){
+        if (ref.current.classList.contains('translate-x-full')) {
             ref.current.classList.remove('translate-x-full')
             ref.current.classList.add('translate-x-0')
         }
-        else{
+        else {
             ref.current.classList.remove('translate-x-0')
             ref.current.classList.add('translate-x-full')
         }
     }
     const ref = useRef()
+    console.log(Object.keys(cart).length)
 
     return (
         <header className=" body-font border shadow-lg">
@@ -34,11 +36,13 @@ const Navbar = () => {
                 </nav>
                 <div className='icons absolute right-5 flex '>
                     <Image alt='cart icon' src="/image/cart.png" onClick={toggleCart} className='mx-2 p-0 cursor-pointer hover:shadow-lg' width={25} height={0} />
-                    <Image alt='cart icon' src="/image/profile.png" className='mx-2 p-0 cursor-pointer rounded-full bg-black hover:border-pink-400 hover:border hover:shadow-lg' width={28} height={10} />
+                    <Link href="/login">
+                        <Image alt='cart icon' src="/image/profile.png" className='mx-2 p-0 cursor-pointer rounded-full bg-black hover:border-pink-400 hover:border active:shadow-lg' width={28} height={10} />
+                    </Link>
                 </div>
             </div>
-            <div  className="cart transform transition-transform translate-x-full absolute right-0 mt-2 bg-pink-300 text-white px-2 py-4 h-auto w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/4  z-10 rounded-md" ref={ref}>
-            <Cart />
+            <div className={`cart transform transition-transform ${Object.keys(cart).length != 0 ? "translate-x-0" : "translate-x-full"}   absolute right-0 mt-2  bg-pink-300 text-white px-2 py-4 h-auto w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/4  z-10 rounded-md`} ref={ref}>
+                <Cart props={props} />
             </div>
         </header>
     )

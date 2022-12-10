@@ -1,8 +1,37 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router';
 import Image from 'next/image'
 
-const Slug = () => {
+const Slug = (props) => {
+
+  const {cart, addToCart, removeFromCart, clearCart, subTotal} = props;
+
+  const router = useRouter();
+  const slugs = router.query.slug;
+
+  const [pincode, setPincode] = useState();
+  const [serviceable, setServiceable] = useState();
+
+
+  const checkServiceability = async () => {
+    console.log("checkServiceability")
+    const fetchServiceablePin = await fetch("http://localhost:3000/api/pincode");
+    const serviceablePin = await fetchServiceablePin.json();
+
+    if (serviceablePin.includes(parseInt(pincode))) {
+      setServiceable(true)
+    } else {
+      setServiceable(false)
+      console.log(pincode)
+    }
+
+  }
+
+  const onChangePin = (e) => {
+    setPincode(e.target.value)
+  }
+
+
   return (
     <div>
       <section className="text-gray-600 body-font overflow-hidden">
@@ -74,14 +103,22 @@ const Slug = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex">
+              <div className="flex items-center justify-between">
                 <span className="title-font font-medium text-2xl text-gray-900">$58.00</span>
-                <button className="flex ml-auto text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Button</button>
+                <button onClick={()=>{addToCart(slugs, 1, 499, 'The Catcher in the Rye(lg,  red)', 'xl', 'red' )}} className="flex ml-auto text-white bg-pink-500 border-0 py-2 px-3 focus:outline-none hover:bg-pink-600 rounded text-sm">Add To Cart</button>
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
                   </svg>
                 </button>
+              </div>
+              <div className="flex mt-8 items-center justify-between ">
+                <input onChange={onChangePin} placeholder="Enter here pincode" type="number" name="pincode" id="pincode" className='border border-gray-400 px-4 py-2 rounded-md outline-none' />
+                <button onClick={checkServiceability} className=" h-10  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded ">Check service</button>
+              </div>
+              <div className="available mt-2">
+                {(!serviceable && serviceable != null) &&<p className='text-red-500'>Sorry! We do not deliver to this pincode yet</p> }
+                {(serviceable && serviceable != null) && <p className='text-green-500'>Yay! This pincode is serviceable</p> }
               </div>
             </div>
           </div>
