@@ -1,11 +1,14 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Cart from '../pages/cart'
 
+
 const Navbar = (props) => {
 
-    const { cart, addToCart, removeFromCart, clearCart, subTotal } = props;
+    const { user, cart, addToCart, removeFromCart, clearCart, subTotal, logout } = props;
+
+    const [dorpDown, setDorpDown] = useState(false)
 
     const toggleCart = () => {
         if (ref.current.classList.contains('translate-x-full')) {
@@ -17,8 +20,8 @@ const Navbar = (props) => {
             ref.current.classList.add('translate-x-full')
         }
     }
+
     const ref = useRef()
-    console.log(Object.keys(cart).length)
 
     return (
         <header className=" body-font border shadow-lg">
@@ -36,13 +39,29 @@ const Navbar = (props) => {
                 </nav>
                 <div className='icons absolute right-5 flex '>
                     <Image alt='cart icon' src="/image/cart.png" onClick={toggleCart} className='mx-2 p-0 cursor-pointer hover:shadow-lg' width={25} height={0} />
-                    <Link href="/login">
-                        <Image alt='cart icon' src="/image/profile.png" className='mx-2 p-0 cursor-pointer rounded-full bg-black hover:border-pink-400 hover:border active:shadow-lg' width={28} height={10} />
-                    </Link>
+                    <a onMouseOver={() => { setDorpDown(true) }} onMouseLeave={() => { setDorpDown(false) }}>
+                        {dorpDown && <div className="w-40 text-md absolute top-6 right-5 bg-pink-300 px-6 py-3 rounded-lg ">
+                            <ul>
+                                <Link href="/myaccount"><li className='text-white font-bold pb-1 hover:text-pink-400'>My Account</li></Link>
+                                <Link href="/orders"><li className='text-white font-bold pb-1 hover:text-pink-400'>Order</li></Link>
+                                <button onClick={logout}><li className='text-white font-bold hover:text-pink-400'>Logout</li></button>
+                            </ul>
+                        </div>}
+                        {user.value && <div onMouseOver={() => { setDorpDown(true) }} onMouseLeave={() => { setDorpDown(false) }}>
+                            <Image alt='cart icon' src="/image/profile.png" className='mx-2 p-0 cursor-pointer rounded-full bg-black hover:border-pink-400 hover:border active:shadow-lg' width={28} height={10} />
+                        </div>}
+                    </a>
+                    {!user.value && <Link href="/login">
+                        <button className="rounded-md border border-transparent bg-pink-600 py-1 px-3 text-sm font-medium text-white hover:bg-pink-700 ">
+                            <Link href="/login" >Login</Link></button>
+                    </Link>}
                 </div>
             </div>
-            <div className={`cart transform transition-transform ${Object.keys(cart).length != 0 ? "translate-x-0" : "translate-x-full"}   absolute right-0 mt-2  bg-pink-300 text-white px-2 py-4 h-auto w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/4  z-10 rounded-md`} ref={ref}>
-                <Cart props={props} />
+            <div className={`cart transform transition-transform ${Object.keys(cart).length != 0 ? "translate-x-0" : "translate-x-full"}  overflow-y-scroll absolute right-0 mt-2  bg-pink-300 text-white px-2 py-4 max:h-[89vh] w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/4 z-10 rounded-md`} ref={ref}>
+                <div className='mx-1'>
+                    <h1 className='text-2xl  font-serif text-center underline mb-2'>Shopwear Cart</h1>
+                    <Cart props={props} />
+                </div>
             </div>
         </header>
     )

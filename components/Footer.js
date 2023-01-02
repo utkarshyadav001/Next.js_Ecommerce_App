@@ -18,67 +18,67 @@ const Footer = () => {
                         <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
                         <nav className="list-none mb-10">
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">First Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Tshirts</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Second Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Hoodies</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Third Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Mugs</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
-                            </li>
-                        </nav>
-                    </div>
-                    <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-                        <nav className="list-none mb-10">
-                            <li>
-                                <a className="text-gray-600 hover:text-gray-800">First Link</a>
-                            </li>
-                            <li>
-                                <a className="text-gray-600 hover:text-gray-800">Second Link</a>
-                            </li>
-                            <li>
-                                <a className="text-gray-600 hover:text-gray-800">Third Link</a>
-                            </li>
-                            <li>
-                                <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Stickers</a>
                             </li>
                         </nav>
                     </div>
                     <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
+                        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">ABOUT</h2>
                         <nav className="list-none mb-10">
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">First Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">About Wearshop</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Second Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Users</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Third Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Shoping</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Join us</a>
                             </li>
                         </nav>
                     </div>
                     <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
+                        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CONTACT </h2>
                         <nav className="list-none mb-10">
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">First Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Contact us</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Second Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Chat us</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Third Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Call</a>
                             </li>
                             <li>
-                                <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                                <a className="text-gray-600 hover:text-gray-800">Report</a>
+                            </li>
+                        </nav>
+                    </div>
+                    <div className="lg:w-1/4 md:w-1/2 w-full px-4">
+                        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">SOCAIL</h2>
+                        <nav className="list-none mb-10">
+                            <li>
+                                <a className="text-gray-600 hover:text-gray-800">Facebook</a>
+                            </li>
+                            <li>
+                                <a className="text-gray-600 hover:text-gray-800">Instagram</a>
+                            </li>
+                            <li>
+                                <a className="text-gray-600 hover:text-gray-800">Linkdin</a>
+                            </li>
+                            <li>
+                                <a className="text-gray-600 hover:text-gray-800">Twitter</a>
                             </li>
                         </nav>
                     </div>

@@ -18,11 +18,10 @@ const Cart = (props) => {
 
 
   return (
-    <div className='mx-1'>
-      <h1 className='text-2xl  font-serif text-center underline mb-2'>Shopwear Cart</h1>
 
-      {/* Itemes here */}
-      <div className="item flex flex-wrap flex-col">
+    <div>
+    <div className="item flex flex-wrap flex-col">
+        {/* Itemes here */}
         {/* {
           product && product.map((item) => {
             return <div key={item.productId}>
@@ -44,7 +43,7 @@ const Cart = (props) => {
         } */}
         {Object.keys(cart).length == 0 && <div className='text-sm text-black text-center font-bold py-2'> Your cart is empty! Please add few product</div>}
         {cart && Object.keys(cart).map((item) => {
-          return <div key={item}>
+          return <div key={item} className=" overflow-y-auto">
             <div className="mt-4">
               <h3 className="text-gray-600 text-xs tracking-widest title-font mb-1">Tshirts</h3>
               <div className="flex  items-center justify-between">
@@ -83,7 +82,7 @@ const Cart = (props) => {
           <button className=' w-full h-full'>Buy Now</button>
         </Link>
       </div>
-    </div>
+      </div>
   )
 }
 
