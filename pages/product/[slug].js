@@ -26,7 +26,7 @@ const Slug = (props) => {
 
 
   const checkServiceability = async () => {
-    const fetchServiceablePin = await fetch("http://localhost:3000/api/pincode");
+    const fetchServiceablePin = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
     const serviceablePin = await fetchServiceablePin.json();
 
     if (serviceablePin.includes(parseInt(pincode))) {
@@ -64,7 +64,7 @@ const Slug = (props) => {
   const [size, setSize] = useState(props.product.size)
 
   const refreshVariant = (newSize, newColor) => {
-    let url = `http://localhost:3000/product/${variants[newColor][newSize]['slug']}`;
+    let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newColor][newSize]['slug']}`;
     window.location = url;
     // router.push(`/product/${variants[newColor][newSize]['slug']}`)
   }

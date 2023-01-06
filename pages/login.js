@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   let router = useRouter()
 
@@ -19,7 +19,7 @@ const Login = () => {
       "password": password
     }
 
-    let res = await fetch('http://localhost:3000/api/login', {
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type':  'application/json',

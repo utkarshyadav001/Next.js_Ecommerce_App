@@ -8,8 +8,9 @@ var jwt = require('jsonwebtoken');
 const handler = async (req, res) => {
     if (req.method == 'POST') {
         try {
+            const secrectkey = process.env.NEXT_PUBLIC_JWT_SECRETKEY
             let { name, email, password } = req.body
-            let encryptedPass = CryptoJS.AES.encrypt(password, 'secretkey123').toString();
+            let encryptedPass = CryptoJS.AES.encrypt(password, secrectkey).toString();
             let data = {
                 name: name,
                 email: email,
@@ -19,7 +20,7 @@ const handler = async (req, res) => {
             let user = new User(data)
             await user.save();
 
-            let token = jwt.sign(data, 'secretkey123', { expiresIn: '1h' });
+            let token = jwt.sign(data, secrectkey, { expiresIn: '1h' });
 
             return res.status(200).json({ success: true, msg: `Hey ${user.name} your account created successfully.`, token })
         } catch (error) {
