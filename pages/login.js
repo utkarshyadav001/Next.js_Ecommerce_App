@@ -54,7 +54,6 @@ const Login = () => {
         progress: undefined,
       });
     }
-    console.log(response)
     setEmail("")
     setPassword("")
   }

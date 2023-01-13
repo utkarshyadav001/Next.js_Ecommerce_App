@@ -62,7 +62,6 @@ const Checkout = (props) => {
         });
 
         let response = await res.json()
-        console.log(response)
 
         if(response.success){
             router.push("/order?id=" + response.oid)
@@ -72,8 +71,7 @@ const Checkout = (props) => {
     }
 
     useEffect(() => {
-        let token = localStorage.getItem('token')
-        if(Object.keys(cart).length==0 || !token ){
+        if(Object.keys(cart).length==0){
             router.push("/")
         }
     }, [])

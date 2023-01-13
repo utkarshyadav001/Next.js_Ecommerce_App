@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { ToastContainer, toast } from 'react-toastify';
@@ -60,14 +60,19 @@ const Slug = (props) => {
   }
 
 
-  const [color, setColor] = useState(props.product.color)
-  const [size, setSize] = useState(props.product.size)
+  const [color, setColor] = useState(product.color)
+  const [size, setSize] = useState(product.size)
 
   const refreshVariant = (newSize, newColor) => {
     let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newColor][newSize]['slug']}`;
-    window.location = url;
-    // router.push(`/product/${variants[newColor][newSize]['slug']}`)
+    router.push(url)
   }
+
+  useEffect(() => {
+      setColor(product.color)
+      setSize(product.size)
+  }, [router.query])
+  
 
 
   return (
@@ -137,8 +142,6 @@ const Slug = (props) => {
                   {Object.keys(variants).includes("Yellow") && Object.keys(variants["Yellow"]).includes(size) && <button className={` border-2 ml-1 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none ${color === "Yellow" ? 'border-black' : 'border-gray-300'}  `} onClick={() => { refreshVariant(size, 'Yellow') }} ></button>}
                   {Object.keys(variants).includes("Red") && Object.keys(variants["Red"]).includes(size) && <button className={` border-2 ml-1 bg-red-500 rounded-full w-6 h-6 focus:outline-none ${color === "Red" ? 'border-black' : 'border-gray-300'}  `} onClick={() => { refreshVariant(size, 'Red') }} ></button>}
                   {Object.keys(variants).includes("Black") && Object.keys(variants["Black"]).includes(size) && <button className={` border-2 ml-1 bg-black rounded-full w-6 h-6 focus:outline-none ${color === "Black" ? 'border-black' : 'border-gray-300'}  `} onClick={() => { refreshVariant(size, 'Black') }} ></button>}
-                  {console.log(Object.keys(variants))}
-                  {console.log(Object.keys(variants["Black"]).includes(size))}
 
                 </div>
                 <div className="flex ml-6 items-center">
@@ -150,7 +153,6 @@ const Slug = (props) => {
                       {Object.keys(variants[color]).includes('L') && <option value={'L'}>L</option>}
                       {Object.keys(variants[color]).includes('XL') && <option value={'XL'}>XL</option>}
                       {Object.keys(variants[color]).includes('XXL') && <option value={'XXL'}>XXL</option>}
-                      {console.log(variants)}
                     </select>
                     <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                       <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4" viewBox="0 0 24 24">

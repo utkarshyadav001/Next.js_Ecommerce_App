@@ -1,25 +1,33 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Cart from '../pages/cart'
+import { useRouter } from 'next/router'
+
 
 
 const Navbar = (props) => {
 
     const { user, cart, addToCart, removeFromCart, clearCart, subTotal, logout } = props;
+    const router = useRouter()
 
     const [dorpDown, setDorpDown] = useState(false)
+    const [sideCart, setSideCart] = useState(false)
 
     const toggleCart = () => {
-        if (ref.current.classList.contains('translate-x-full')) {
-            ref.current.classList.remove('translate-x-full')
-            ref.current.classList.add('translate-x-0')
-        }
-        else {
-            ref.current.classList.remove('translate-x-0')
-            ref.current.classList.add('translate-x-full')
-        }
+        setSideCart(!sideCart)
     }
+
+    useEffect(() => {
+        let dontShowCart = ["/order", "/myaccount", "/signup", "/login", "/forgot", "/checkout", "/product/[slug]"]
+        if(dontShowCart.includes(router.pathname)){
+            setSideCart(false)
+        }
+        else{
+            setSideCart(true)
+        }
+    }, [router.pathname])
+    
 
     const ref = useRef()
 
@@ -40,7 +48,7 @@ const Navbar = (props) => {
                 <div className='icons absolute right-5 flex '>
                     <Image alt='cart icon' src="/image/cart.png" onClick={toggleCart} className='mx-2 p-0 cursor-pointer hover:shadow-lg' width={25} height={0} />
                     <a onMouseOver={() => { setDorpDown(true) }} onMouseLeave={() => { setDorpDown(false) }}>
-                        {dorpDown && <div className="w-40 text-md absolute top-6 right-5 bg-pink-300 px-6 py-3 rounded-lg ">
+                        {dorpDown && <div className="w-40 text-md absolute top-6 right-5 bg-pink-200 px-6 py-3 rounded-lg z-50 ">
                             <ul>
                                 <Link href="/myaccount"><li className='text-white font-bold pb-1 hover:text-pink-400'>My Account</li></Link>
                                 <Link href="/orders"><li className='text-white font-bold pb-1 hover:text-pink-400'>Orders</li></Link>
@@ -57,7 +65,7 @@ const Navbar = (props) => {
                     </Link>}
                 </div>
             </div>
-            <div className={`cart transform transition-transform ${Object.keys(cart).length != 0 ? "translate-x-0" : "translate-x-full"}  overflow-y-scroll absolute right-0 mt-2  bg-pink-300 text-white px-2 py-4 max:h-[89vh] w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/4 z-10 rounded-md`} ref={ref}>
+            <div className={`cart transform transition-transform ${sideCart && sideCart ? "translate-x-0" : "translate-x-full"}  overflow-y-scroll absolute right-0 mt-2  bg-pink-300 text-white px-2 py-4 max:h-[89vh] w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/4 z-10 rounded-md`} ref={ref}>
                 <div className='mx-1'>
                     <h1 className='text-2xl  font-serif text-center underline mb-2'>Shopwear Cart</h1>
                     <Cart props={props} />
