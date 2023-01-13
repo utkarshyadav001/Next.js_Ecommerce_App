@@ -20,7 +20,8 @@ const handler = async (req, res) => {
 
                 if( decryptedPass == password ){
                     let data = { name: findUser.name, email:  findUser.email, password: findUser.password }
-                    let token = jwt.sign(data, secrectkey, { expiresIn: '1h' });
+                    let token = jwt.sign(data, secrectkey);
+                    // let token = jwt.sign(data, secrectkey, { expiresIn: '1h' });
                     return res.status(200).json({success: true, msg: "Login successfully", token})
                 }
                 else{

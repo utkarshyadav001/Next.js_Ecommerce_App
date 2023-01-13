@@ -55,7 +55,8 @@ function MyApp({ Component, pageProps }) {
   }
 
   const buyNow = (itemCode, qty, price, name, size, variant) =>{
-    let newCart = {itemCode:  { qty: 1, price, name, size, variant }};
+    let newCart = {};
+    newCart[itemCode] = { qty: 1, price, name, size, variant };
     setCart(newCart)
     saveCart(newCart)
     router.push("/checkout")

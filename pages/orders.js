@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link"
 
 // For Server Side props
 import order from "../models/order";
@@ -7,11 +8,30 @@ import mongoose from "mongoose";
 
 const Orders = () => {
   const router = useRouter();
+  const [order, setOrder] = useState()
 
   useEffect(() => {
+    
+    const fetchOrder = async ()=>{
+      let req = await fetch(process.env.NEXT_PUBLIC_HOST + "/api/fetchorders", {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json',
+        },
+        body : JSON.stringify({token: localStorage.getItem('token')})
+      });
+
+      let or = await req.json()
+      setOrder(or.products)
+    }
+
     if (!localStorage.getItem("token")) {
       router.push("/");
     }
+    else{
+      fetchOrder()
+    }
+
   }, []);
 
   return (
@@ -26,78 +46,34 @@ const Orders = () => {
                 Product name
               </th>
               <th scope="col" className="py-3 px-6">
-                Color
+              Quantity
               </th>
               <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-500">
-                Category
+                Status
               </th>
               <th scope="col" className="py-3 px-6">
-                Price
+                Price 
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th
-                scope="row"
-                className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-500"
-              >
-                Apple MacBook Pro 17
-              </th>
-              <td className="py-4 px-6">Sliver</td>
-              <td className="py-4 px-6 bg-gray-50 dark:bg-gray-500">Laptop</td>
-              <td className="py-4 px-6">$2999</td>
-            </tr>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th
-                scope="row"
-                className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-500"
-              >
-                Microsoft Surface Pro
-              </th>
-              <td className="py-4 px-6">White</td>
-              <td className="py-4 px-6 bg-gray-50 dark:bg-gray-500">
-                Laptop PC
-              </td>
-              <td className="py-4 px-6">$1999</td>
-            </tr>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th
-                scope="row"
-                className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-500"
-              >
-                Magic Mouse 2
-              </th>
-              <td className="py-4 px-6">Black</td>
-              <td className="py-4 px-6 bg-gray-50 dark:bg-gray-500">
-                Accessories
-              </td>
-              <td className="py-4 px-6">$99</td>
-            </tr>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th
-                scope="row"
-                className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-500"
-              >
-                Google Pixel Phone
-              </th>
-              <td className="py-4 px-6">Gray</td>
-              <td className="py-4 px-6 bg-gray-50 dark:bg-gray-500">Phone</td>
-              <td className="py-4 px-6">$799</td>
-            </tr>
-            <tr>
-              <th
-                scope="row"
-                className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-500"
-              >
-                Apple Watch 5
-              </th>
-              <td className="py-4 px-6">Red</td>
-              <td className="py-4 px-6 bg-gray-50 dark:bg-gray-500">
-                Wearables
-              </td>
-              <td className="py-4 px-6">$999</td>
-            </tr>
+            {
+              order && order.map((item)=>{
+                let pro = item.products
+                let status  = item.status
+                let orderId = item._id
+                return Object.keys(pro).map((item)=>{
+                  return <tr key={pro[item].name} className="border-b border-gray-200 dark:border-gray-700">
+                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-500">
+                    <Link className="text-blue-500 hover:text-blue-700" href={process.env.NEXT_PUBLIC_HOST + `/order?id=${orderId}`}>{pro[item].name} </Link>
+                    </th>
+                    <td className="py-4 px-6">{pro[item].qty}</td>
+                    <td className="py-4 px-6 bg-gray-50 dark:bg-gray-500">{status}</td>
+                    <td className="py-4 px-6">₹{pro[item].price}</td>
+                  </tr>
+              })
+              })
+            }
           </tbody>
         </table>
       </div>

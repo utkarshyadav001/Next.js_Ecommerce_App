@@ -43,7 +43,7 @@ const Navbar = (props) => {
                         {dorpDown && <div className="w-40 text-md absolute top-6 right-5 bg-pink-300 px-6 py-3 rounded-lg ">
                             <ul>
                                 <Link href="/myaccount"><li className='text-white font-bold pb-1 hover:text-pink-400'>My Account</li></Link>
-                                <Link href="/orders"><li className='text-white font-bold pb-1 hover:text-pink-400'>Order</li></Link>
+                                <Link href="/orders"><li className='text-white font-bold pb-1 hover:text-pink-400'>Orders</li></Link>
                                 <button onClick={logout}><li className='text-white font-bold hover:text-pink-400'>Logout</li></button>
                             </ul>
                         </div>}
