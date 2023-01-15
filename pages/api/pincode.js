@@ -1,12 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import pincode from "../../pincodes.json"
 
 export default function handler(req, res) {
-  let pincodes = {
-    "209861" : ["Unnao", "Uttar Pradesh"],
-    "208001" : ["Kanpur", "Uttar Pradesh"],
-    "123456" : ["Paloura", "Jammu"],
-    "209862" : ["Delhi", "Delhi"]
-  }
+    let pincodes = pincode
     res.status(200).json( pincodes )
   }
   

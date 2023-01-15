@@ -30,7 +30,7 @@ const Tshirts = ({ products }) => {
             <div className="flex flex-wrap mt-1">
               {
                 products && Object.keys(products).map((item) => {
-                  return <div key={item.slug} className="lg:w-1/4 md:w-1/2 p-4 w-full  shadow-lg" ><Link href={`product/${products[item].slug}`}  >
+                  return <div key={products[item].slug} className="lg:w-1/4 md:w-1/2 p-4 w-full  shadow-lg" ><Link href={`product/${products[item].slug}`}  >
                     <div className="block relative  max-h-96  rounded overflow-hidden shadow-lg cursor-pointer">
                       <Image alt="ecommerce" className="object-cover  w-full h-full block" src={product[item].img} width={355} height={455} />
                     </div>

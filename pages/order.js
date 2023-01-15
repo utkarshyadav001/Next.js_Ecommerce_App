@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 import mongoose from "mongoose"
@@ -8,6 +8,13 @@ import Order from '../models/order';
 const MyOrder = ({product}) => {
 
   let products = product.products;
+  const [date, setDate] = useState()
+
+  useEffect(() => {
+    let d = new Date(product.createdAt)
+    setDate(d)
+  }, [])
+  
 
   return (
     <div>
@@ -17,8 +24,9 @@ const MyOrder = ({product}) => {
             <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
               <h2 className="text-sm title-font text-pink-500 tracking-widest">Shopwears.com</h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-2">Order Id: #{product.orderId}</h1>
-              <p className="leading-relaxed text-sm mb-4">Your order has been sucessfully placed.</p>
-              <p className="leading-relaxed text-sm mb-4">Your payment status is : <span className="text-pink-600">{product.status}</span> </p>
+              <p className="leading-relaxed text-sm mb-2">Your order has been sucessfully placed.</p>
+              <p className="leading-relaxed text-sm">Your payment status is : <span className="text-pink-600">{product.status}</span> </p>
+              <p className="leading-relaxed text-sm mb-4">Order placed on : <span className="text-pink-600">{ date && date.toLocaleDateString("en-IN", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}</span> </p>
               <div className="flex mb-4 justify-around border-b-2 border-gray-300">
                 <a className="py-2 text-lg ">Name</a>
                 <a className="py-2 text-lg ">Quantity</a>

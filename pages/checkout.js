@@ -42,12 +42,6 @@ const Checkout = (props) => {
                 setState("")
             }
         }
-        if( name.length>3 && email.length>3 && address.length>3 && phone.length>3 && pincode.length>3 ){
-            setPayBtnDisabled(false)
-        }
-        else{
-            setPayBtnDisabled(true)
-        }
     }
 
     const pay = async ()=>{
@@ -75,6 +69,16 @@ const Checkout = (props) => {
             router.push("/")
         }
     }, [])
+
+    useEffect(() => {
+        if( name.length>3 && email.length>3 && address.length>3 && phone.length>3 && pincode.length>3 ){
+            setPayBtnDisabled(false)
+        }
+        else{
+            setPayBtnDisabled(true)
+        }
+    }, [ name, email, pincode, address, phone])
+    
     
 
     return (
