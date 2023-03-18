@@ -12,10 +12,10 @@ const handler = async (req, res) => {
         return res.status(400).json({ error: "Please login" });
       }
 
-      let userInfo = await jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRETKEY);
-      console.log(userInfo)
+      let tokenData = await jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRETKEY);
+      console.log(tokenData)
 
-      let products = await order.find({email: userInfo.email});
+      let products = await order.find({email: tokenData.email});
 
       return res.status(200).json({ products });
     } catch (error) {

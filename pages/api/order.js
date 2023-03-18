@@ -2,6 +2,7 @@
 import connectDB from "../../middleware/connectDB.js";
 import Order from "../../models/order.js";
 import Product from "../../models/product.js";
+import pincodes from "../../pincodes.json"
 
 const handler = async (req, res) => {
   if (req.method == "POST") {
@@ -15,15 +16,23 @@ const handler = async (req, res) => {
 
       
       if(!subTotal || !cart || !name || !email || !address || !phone || !pincode || subTotal == 0 || Object.keys(cart).length <=0 ){
-        return res.status(400).json({ error: "Bad request" });
+        return res.status(400).json({ success: false, error: "Please Enter all valid details", clearCart : false });
+      }
+
+      if(Object.keys(cart).length <=0 ){
+        return res.status(400).json({ success: false, error: "Please add product in your cart", clearCart : false });
       }
       
 
       if(phone.length !=10 || Number.isInteger(phone)){
-        return res.status(400).json({ success: false, error: "Bad request" });
+        return res.status(400).json({ success: false, error: "Please Enter 10 digit Phone Number", clearCart : false });
       }
       if(pincode.length !=6 || Number.isInteger(pincode)){
-        return res.status(400).json({ success: false, error: "Bad request" });
+        return res.status(400).json({ success: false, error: "Please Enter 6 digit Pincode", clearCart : false });
+      }
+
+      if (!Object.keys(pincodes).includes(pincode)) {
+        return res.status(400).json({ success: false, error: "Sorry, your pincode is not serviceable", clearCart : false });
       }
       
 
@@ -33,7 +42,7 @@ const handler = async (req, res) => {
       for (let item in cart) {
         let product = await  Product.findOne({ slug: item });        
         if ( product.availableQty == 0 || product.availableQty < cart[item].qty ) {
-          return res.status(400).json({ success: false, error: "Sorry ! Some items are not available or out of stock, Please try latter" } );
+          return res.status(400).json({ success: false, error: "Sorry ! Some items are not available or out of stock, Please try latter", clearCart : false } );
         }
       }
 
@@ -53,7 +62,7 @@ const handler = async (req, res) => {
       }
 
       if (scam) {
-        return res.status(400).json({ success: false, error: "Bad request" });
+        return res.status(400).json({ success: false, error: "Sorry, Some things waste, Wrong Please try again letter", clearCart : true });
       }
 
 
@@ -82,16 +91,16 @@ const handler = async (req, res) => {
       }
 
       //   res.redirect('/order', 200)
-      return res.status(200).json({success: true, oid})
+      return res.status(200).json({success: true, oid, clearCart : false, msg: "Your order has been placed."})
     } catch (error) {
       console.log(
         "########################### Error catched sucessfully ###########################"
       );
       console.log(error);
-      return res.status(400).json({ error: "Bad request" });
+      return res.status(400).json({ success: false, error: "Sorry, Some things waste, Wrong Please try again letter", clearCart : false });
     }
   } else {
-    return res.status(400).json({ error: "This method is not allowed" });
+    return res.status(400).json({ success: false, error: "Sorry, This method is not allowed", clearCart : false });
   }
 };
 

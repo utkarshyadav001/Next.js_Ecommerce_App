@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }) {
     }
     else {
       newCart[itemCode] = { qty: 1, price, name, size, variant }
+      setKey(Math.random());
     }
     setCart(newCart)
     saveCart(newCart)

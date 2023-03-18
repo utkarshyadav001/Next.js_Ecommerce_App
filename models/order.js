@@ -5,6 +5,7 @@ const OrderSchema = new mongoose.Schema({
     orderId: {type: String, required: true, unique: true},
     products: {type: Object, required: true},
     address: {type: String, required: true},
+    pincode: {type: Number, required: true},
     amount: {type: Number, required: true},
     status: {type: String, default: 'Initiated', required: true}
 }, { timestamps: true });

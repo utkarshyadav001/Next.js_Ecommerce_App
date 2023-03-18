@@ -1,5 +1,7 @@
 import  { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Checkout = (props) => {
 
@@ -56,12 +58,37 @@ const Checkout = (props) => {
         });
 
         let response = await res.json()
+        
+        if (response.success) {
+            toast.success(response.msg, {
+              position: "top-left",
+              autoclose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            setTimeout(() => {
+                router.push("/order?id=" + response.oid)
+            }, 2000);
+          }
+          else{
+            toast.error(response.error, {
+              position: "top-left",
+              autoclose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            if(response.clearCart){
+                clearCart()
+            }
 
-        if(response.success){
-            router.push("/order?id=" + response.oid)
         }
 
-        
     }
 
     useEffect(() => {
@@ -83,6 +110,17 @@ const Checkout = (props) => {
 
     return (
         <div className='container mx-auto w-4/5'>
+      <ToastContainer
+          position='bottom-left'
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
 
             <h1 className='text-2xl mt-6 my-2  font-serif text-center underline mb-2'>Checkout</h1>
             <div className="flex flex-col mx-auto">                

@@ -19,7 +19,7 @@ const Navbar = (props) => {
     }
 
     useEffect(() => {
-        let dontShowCart = ["/order", "/myaccount", "/signup", "/login", "/forgot", "/checkout", "/product/[slug]"]
+        let dontShowCart = ["/order", "/myaccount", "/signup", "/login", "/forgot", "/checkout"]
         if(dontShowCart.includes(router.pathname)){
             setSideCart(false)
         }
@@ -45,8 +45,8 @@ const Navbar = (props) => {
                     <Link href="/mugs" className="hover:text-pink-500 text-sm font-bold  hover:shadow-sm">Mugs</Link>
                     <Link href="/stickers" className="hover:text-pink-500 text-sm font-bold  hover:shadow-sm">Stickers</Link>
                 </nav>
-                <div className='icons absolute right-5 flex '>
-                    <Image alt='cart icon' src="/image/cart.png" onClick={toggleCart} className='mx-2 p-0 cursor-pointer hover:shadow-lg' width={25} height={0} />
+                <div className='icons absolute right-5 flex w-17 '>
+                    <Image alt='cart icon' src="/bag-shopping-solid.svg" onClick={toggleCart} className='mx-2 color-red-300 p-0 cursor-pointer hover:shadow-lg' width={25} height={0} />
                     <a onMouseOver={() => { setDorpDown(true) }} onMouseLeave={() => { setDorpDown(false) }}>
                         {dorpDown && <div className="w-40 text-md absolute top-6 right-5 bg-pink-200 pl-6 py-3 rounded-lg z-50 ">
                             <ul>

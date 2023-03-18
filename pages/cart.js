@@ -65,8 +65,8 @@ const Cart = (props) => {
         <span className='text-black font-bold'>Total Price : ₹ {subTotal}</span>
       </div>
       <div className="flex space-x-2">
-          <button disabled={Object.keys(cart).length==0 ? true : false} className=' w-1/2 h-10 text-sm text-white bg-pink-500 border-0 py-1 px-1 focus:outline-none hover:bg-pink-600 rounded disabled:bg-pink-400 active:bg-pink-500 cursor-pointer '>
-          {Object.keys(cart).length==0 ? <span>Checkout </span> : <Link href="/checkout">Checkout</Link>}
+          <button disabled={Object.keys(cart).length==0 ? true : false} className=' w-1/2 h-10 text-sm text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded disabled:bg-pink-400 active:bg-pink-500 cursor-pointer '>
+          {Object.keys(cart).length==0 ? <span>Checkout </span> : <Link href="/checkout" className='block py-2'>Checkout</Link>}
           </button>
         <button disabled={Object.keys(cart).length==0 ? true : false}  onClick={clearCart} className=' w-1/2 h-10 text-sm text-white bg-pink-500 border-0 py-1 px-1 focus:outline-none hover:bg-pink-600 rounded active:bg-pink-500 disabled:bg-pink-400 cursor-pointer'>Clear Cart</button>
       </div>
